@@ -2,11 +2,24 @@ import { useState } from "react"
 import Button from "../components/Button"
 import Input from "../components/Input"
 import { Link } from "react-router-dom"
+import { api } from "../Api/api"
 
 const SignIn = () => {
     const [error, setError] = useState("")
 
-    const handleSubmit = () => {}
+    const handleSubmit = async (e) => {e.preventDefault() 
+            const user = {
+            username: e.target.username.value,
+            password: e.target.password.value,
+        }
+        try {
+            const data = await api.loginUser(user)
+            } catch (error) {
+                setError(error.response.data.error)
+                console.error(error)
+            }
+        
+        }
 
     return (
         <div className="auth-page">
@@ -17,7 +30,7 @@ const SignIn = () => {
                     <Input
                         id="username"
                         name="username"
-                        type="text"
+                        type="text" 
                         label="Имя пользователя"
                         required
                         placeholder="Введите имя пользователя"
@@ -26,6 +39,8 @@ const SignIn = () => {
                         id="password"
                         name="password"
                         type="password"
+                        minlenght={6}
+                        maxlenght={40}
                         label="Пароль"
                         required
                         placeholder="Введите пароль"
