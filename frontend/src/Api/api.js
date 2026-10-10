@@ -12,4 +12,13 @@ const loginUser = async (user) => {
     return ent
 }
 
-export const api = {registerUser, loginUser }
+const getMessages = async () => {
+    const res = await apiInstance.get("/messages")
+    return res
+}
+
+const getMessage = async () => {
+
+}
+
+export const api = {registerUser, loginUser, getMessage, getMessages }
